@@ -33,10 +33,10 @@ class Predictor(BasePredictor):
         
         startup_timer = timer.startup_timer
         startup_timer.record("launcher")
-        
-        # initialize.imports()
-        # initialize.check_versions()
-        # initialize.initialize()
+        sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
+        initialize.imports()
+        initialize.check_versions()
+        initialize.initialize()
         
         app = FastAPI()
         initialize_util.setup_middleware(app)
