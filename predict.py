@@ -35,8 +35,8 @@ class Predictor(BasePredictor):
         startup_timer.record("launcher")
         
         # initialize.imports()
-        initialize.check_versions()
-        initialize.initialize()
+        # initialize.check_versions()
+        # initialize.initialize()
         
         app = FastAPI()
         initialize_util.setup_middleware(app)
