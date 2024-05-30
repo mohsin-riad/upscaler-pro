@@ -35,12 +35,12 @@ class Predictor(BasePredictor):
         
         startup_timer = timer.startup_timer
         startup_timer.record("launcher")
-        initialize.imports()
-        initialize.check_versions()
-        initialize.initialize()
+        # initialize.imports()
+        # initialize.check_versions()
+        # initialize.initialize()
         
         app = FastAPI()
-        initialize_util.setup_middleware(app)
+        # initialize_util.setup_middleware(app)
         
         from modules.api.api import Api
         from modules.call_queue import queue_lock

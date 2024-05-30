@@ -18,5 +18,4 @@ build:
     - git config --global --add safe.directory /src
     - git clone https://github.com/philz1337x/stable-diffusion-webui-cog-init /stable-diffusion-webui
     - python /stable-diffusion-webui/init_env.py --skip-torch-cuda-test
-    - cd /src && pip install -e .
 predict: "predict.py:Predictor"
