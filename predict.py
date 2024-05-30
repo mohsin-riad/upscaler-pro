@@ -34,7 +34,7 @@ class Predictor(BasePredictor):
         startup_timer = timer.startup_timer
         startup_timer.record("launcher")
         
-        initialize.imports()
+        # initialize.imports()
         initialize.check_versions()
         initialize.initialize()
         
