@@ -1,5 +1,4 @@
 import sys
-sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
 from modules import timer
 from modules import initialize_util
 from modules import initialize
@@ -20,6 +19,7 @@ import mimetypes
 from cog import BasePredictor, Input, Path
 
 from handfix.handfix import (detect_and_crop_hand_from_binary, insert_cropped_hand_into_image)
+sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
 
 mimetypes.add_type("image/webp", ".webp")
 
