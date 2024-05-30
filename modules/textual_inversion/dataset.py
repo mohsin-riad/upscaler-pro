@@ -12,6 +12,8 @@ import random
 import tqdm
 from modules import devices, shared
 import re
+import sys
+import os
 sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
 from ldm.modules.distributions.distributions import DiagonalGaussianDistribution
 

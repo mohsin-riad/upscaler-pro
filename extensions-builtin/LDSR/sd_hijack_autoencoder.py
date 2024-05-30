@@ -8,6 +8,8 @@ import torch.nn.functional as F
 from contextlib import contextmanager
 
 from torch.optim.lr_scheduler import LambdaLR
+import sys
+import os
 sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
 from ldm.modules.ema import LitEma
 from vqvae_quantize import VectorQuantizer2 as VectorQuantizer

@@ -9,6 +9,8 @@ import modules.textual_inversion.dataset
 import torch
 import tqdm
 from einops import rearrange, repeat
+import sys
+import os
 sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
 from ldm.util import default
 from modules import devices, sd_models, shared, sd_samplers, hashes, sd_hijack_checkpoint, errors

@@ -5,6 +5,8 @@ import platform
 
 import torch
 from torch import einsum
+import sys
+import os
 sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
 from ldm.util import default
 from einops import rearrange

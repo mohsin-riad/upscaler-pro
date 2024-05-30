@@ -1,3 +1,5 @@
+import sys
+import os
 sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
 from ldm.models.diffusion.ddpm import LatentDiffusion
 from typing import TYPE_CHECKING

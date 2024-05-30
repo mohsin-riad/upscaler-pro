@@ -10,6 +10,8 @@ from omegaconf import OmegaConf, ListConfig
 from os import mkdir
 from urllib import request
 import ldm.modules.midas as midas
+import sys
+import os
 sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
 from ldm.util import instantiate_from_config
 
