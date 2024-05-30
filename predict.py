@@ -129,7 +129,7 @@ class Predictor(BasePredictor):
                 }
             }
         }
-        
+
         req = StableDiffusionImg2ImgProcessingAPI(**payload)
         self.api.img2imgapi(req)
 
@@ -179,23 +179,36 @@ class Predictor(BasePredictor):
         if value > 1:
             lst.append(value)
         return lst
-    
+
     def predict(
         self,
         image: Path = Input(description="input image"),
         prompt: str = Input(description="Prompt", default="masterpiece, best quality, highres, <lora:more_details:0.5> <lora:SDXLrender_v2.0:1>"),
-        negative_prompt: str = Input(description="Negative Prompt", default="(worst quality, low quality, normal quality:2) JuggernautNegative-neg"),
+        negative_prompt: str = Input(
+            description="Negative Prompt", 
+            default="(worst quality, low quality, normal quality:2) JuggernautNegative-neg"
+        ),
         scale_factor: float = Input(
-            description="Scale factor", default=2
+            description="Scale factor", 
+            default=2
         ),
         dynamic: float = Input(
-            description="HDR, try from 3 - 9", ge=1, le=50, default=6
+            description="HDR, try from 3 - 9", 
+            ge=1, 
+            le=50, 
+            default=6
         ),
         creativity: float = Input(
-            description="Creativity, try from 0.3 - 0.9", ge=0, le=1, default=0.35
+            description="Creativity, try from 0.3 - 0.9", 
+            ge=0, 
+            le=1, 
+            default=0.35
         ),
         resemblance: float = Input(
-            description="Resemblance, try from 0.3 - 1.6", ge=0, le=3, default=0.6
+            description="Resemblance, try from 0.3 - 1.6", 
+            ge=0, 
+            le=3, 
+            default=0.6
         ),
         tiling_width: int = Input(
             description="Fractality, set lower tile width for a high Fractality",
@@ -218,16 +231,22 @@ class Predictor(BasePredictor):
             default="DPM++ 3M SDE Karras",
         ),
         num_inference_steps: int = Input(
-            description="Number of denoising steps", ge=1, le=100, default=18
+            description="Number of denoising steps", 
+            ge=1, 
+            le=100, 
+            default=18
         ),
         seed: int = Input(
-            description="Random seed. Leave blank to randomize the seed", default=1337
+            description="Random seed. Leave blank to randomize the seed", 
+            default=1337
         ),
         downscaling: bool = Input(
-            description="Downscale the image before upscaling. Can improve quality and speed for images with high resolution but lower quality", default=False
+            description="Downscale the image before upscaling. Can improve quality and speed for images with high resolution but lower quality", 
+            default=False
         ),
         downscaling_resolution: int = Input(
-            description="Downscaling resolution", default=768
+            description="Downscaling resolution", 
+            default=768
         ),
         lora_links: str = Input(
             description="Link to a lora file you want to use in your upscaling. Multiple links possible, seperated by comma",
@@ -237,10 +256,14 @@ class Predictor(BasePredictor):
             default=""
         ),
         sharpen: float = Input(
-            description="Sharpen the image after upscaling. The higher the value, the more sharpening is applied. 0 for no sharpening", ge=0, le=10, default=0
+            description="Sharpen the image after upscaling. The higher the value, the more sharpening is applied. 0 for no sharpening", 
+            ge=0, 
+            le=10, 
+            default=0
         ),
         mask: Path = Input(
-            description="Mask image to mark areas that should be preserved during upscaling", default=None
+            description="Mask image to mark areas that should be preserved during upscaling", 
+            default=None
         ),
         handfix: str = Input(
             description="Use clarity to fix hands in the image",
@@ -262,7 +285,7 @@ class Predictor(BasePredictor):
             sd_model = "epicrealism_naturalSinRC1VAE.safetensors"
         if sd_model == "juggernaut_reborn.safetensors [338b85bc4f]":
             sd_model = "juggernaut_reborn.safetensors"
-    
+
         if lora_links:
             lora_link = [link.strip() for link in lora_links.split(",")]
             for link in lora_link:
@@ -272,7 +295,7 @@ class Predictor(BasePredictor):
             path_to_custom_checkpoint = self.download_safetensors(custom_sd_model)
             sd_model = os.path.basename(path_to_custom_checkpoint)
             self.api.refresh_checkpoints()
-        
+
         image_file_path = image
 
         with open(image_file_path, "rb") as image_file:
@@ -288,12 +311,12 @@ class Predictor(BasePredictor):
             image = cv2.imdecode(image_np_array, cv2.IMREAD_UNCHANGED)
 
             height, width = image.shape[:2]
-            
+
             if height > width:
                 scaling_factor = downscaling_resolution / float(height)
             else:
                 scaling_factor = downscaling_resolution / float(width)
-            
+
             new_width = int(width * scaling_factor)
             new_height = int(height * scaling_factor)
 
@@ -313,7 +336,7 @@ class Predictor(BasePredictor):
 
                 cropped_hand_img_rgb = cv2.cvtColor(cropped_hand_img, cv2.COLOR_BGR2RGB)
                 cropped_hand_img_pil = Image.fromarray(cropped_hand_img_rgb)
-    
+
             else:
                 print("No hands detected")
                 return
@@ -325,16 +348,16 @@ class Predictor(BasePredictor):
         if scale_factor > 2:
             multipliers = self.calc_scale_factors(scale_factor)
             print("Upscale your image " + str(len(multipliers)) + " times")
-        
+
         first_iteration = True
 
         for multiplier in multipliers:
             print("Upscaling with scale_factor: ", multiplier)
-            
+
             if not first_iteration:
                 creativity = creativity * 0.8
                 seed = seed +1
-                
+
             first_iteration = False
 
             payload = {
@@ -445,7 +468,7 @@ class Predictor(BasePredictor):
                     kernel_filter = ImageFilter.Kernel((3, 3), kernel, scale=1, offset=0)
 
                     imageObject = imageObject.filter(kernel_filter)
-                
+
                 optimised_file_path = Path(f"{seed}-{uuid.uuid1()}.{output_format}")
 
                 if output_format in ["webp", "jpg"]:
@@ -465,4 +488,3 @@ class Predictor(BasePredictor):
 
         print(f"Prediction took {round(time.time() - start_time,2)} seconds")
         return outputs
-    
