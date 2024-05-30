@@ -1,4 +1,5 @@
 import sys
+sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
 from modules import timer
 from modules import initialize_util
 from modules import initialize
@@ -33,7 +34,6 @@ class Predictor(BasePredictor):
         
         startup_timer = timer.startup_timer
         startup_timer.record("launcher")
-        sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
         initialize.imports()
         initialize.check_versions()
         initialize.initialize()
