@@ -6,7 +6,9 @@ from urllib.parse import urlparse
 from fastapi import FastAPI
 from io import BytesIO
 from PIL import Image, ImageFilter
-
+import sys
+import os
+sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
 import os, json
 import numpy as np
 import requests
@@ -33,7 +35,6 @@ class Predictor(BasePredictor):
         
         startup_timer = timer.startup_timer
         startup_timer.record("launcher")
-        sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
         initialize.imports()
         initialize.check_versions()
         initialize.initialize()
