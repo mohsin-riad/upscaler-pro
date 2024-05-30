@@ -10,7 +10,7 @@ from omegaconf import OmegaConf, ListConfig
 from os import mkdir
 from urllib import request
 import ldm.modules.midas as midas
-
+sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
 from ldm.util import instantiate_from_config
 
 from modules import paths, shared, modelloader, devices, script_callbacks, sd_vae, sd_disable_initialization, errors, hashes, sd_models_config, sd_unet, sd_models_xl, cache, extra_networks, processing, lowvram, sd_hijack, patches

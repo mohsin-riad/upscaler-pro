@@ -12,7 +12,7 @@ import random
 import tqdm
 from modules import devices, shared
 import re
-
+sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
 from ldm.modules.distributions.distributions import DiagonalGaussianDistribution
 
 re_numbers_at_start = re.compile(r"^[-\d]+\s*")

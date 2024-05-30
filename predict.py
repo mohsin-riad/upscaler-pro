@@ -1,4 +1,4 @@
-import sys
+
 from modules import timer
 from modules import initialize_util
 from modules import initialize
@@ -19,7 +19,6 @@ import mimetypes
 from cog import BasePredictor, Input, Path
 
 from handfix.handfix import (detect_and_crop_hand_from_binary, insert_cropped_hand_into_image)
-sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
 
 mimetypes.add_type("image/webp", ".webp")
 
@@ -34,6 +33,7 @@ class Predictor(BasePredictor):
         
         startup_timer = timer.startup_timer
         startup_timer.record("launcher")
+        sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
         initialize.imports()
         initialize.check_versions()
         initialize.initialize()

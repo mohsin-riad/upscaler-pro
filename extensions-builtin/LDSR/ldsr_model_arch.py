@@ -9,6 +9,7 @@ from PIL import Image
 from einops import rearrange, repeat
 from omegaconf import OmegaConf
 import safetensors.torch
+sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
 
 from ldm.models.diffusion.ddim import DDIMSampler
 from ldm.util import instantiate_from_config, ismap
