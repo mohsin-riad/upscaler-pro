@@ -9,6 +9,9 @@ import safetensors.torch
 from omegaconf import OmegaConf, ListConfig
 from os import mkdir
 from urllib import request
+import sys
+import os
+sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
 import ldm.modules.midas as midas
 import sys
 import os

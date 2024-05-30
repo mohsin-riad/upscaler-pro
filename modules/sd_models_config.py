@@ -27,7 +27,9 @@ def is_using_v_parameterization_for_sd2(state_dict):
     """
     Detects whether unet in state_dict is using v-parameterization. Returns True if it is. You're welcome.
     """
-
+    import sys
+    import os
+    sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
     import ldm.modules.diffusionmodules.openaimodel
 
     device = devices.cpu

@@ -1,5 +1,7 @@
 from torch.utils.checkpoint import checkpoint
-
+import sys
+import os
+sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
 import ldm.modules.attention
 import ldm.modules.diffusionmodules.openaimodel
 

@@ -6,7 +6,9 @@ from modules import devices, sd_hijack_optimizations, shared, script_callbacks, 
 from modules.hypernetworks import hypernetwork
 from modules.shared import cmd_opts
 from modules import sd_hijack_clip, sd_hijack_open_clip, sd_hijack_unet, sd_hijack_xlmr, xlmr, xlmr_m18
-
+import sys
+import os
+sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
 import ldm.modules.attention
 import ldm.modules.diffusionmodules.model
 import ldm.modules.diffusionmodules.openaimodel
